@@ -8,15 +8,14 @@ using TeamWater.Data;
 
 namespace TeamWater.Services.User
 {
+    public class UserService : IUserService
+    {
     private readonly ApplicationDbContext _context;
     public UserService(ApplicationDbContext context) 
     {
         _context = context;
     }
 
-
-    public class UserService : IUserService
-    {
         public async Task<bool> RegisterUserAsync(UserRegister model)
         {
             var entity = new UserEntity
