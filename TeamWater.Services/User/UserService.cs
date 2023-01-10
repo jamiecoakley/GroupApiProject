@@ -10,11 +10,11 @@ namespace TeamWater.Services.User
 {
     public class UserService : IUserService
     {
-    private readonly ApplicationDbContext _context;
-    public UserService(ApplicationDbContext context) 
-    {
-        _context = context;
-    }
+        private readonly ApplicationDbContext _context;
+        public UserService(ApplicationDbContext context) 
+        {
+            _context = context;
+        }
 
         public async Task<bool> RegisterUserAsync(UserRegister model)
         {
