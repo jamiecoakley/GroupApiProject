@@ -15,5 +15,15 @@ namespace TeamWater.Data
         }
 
         public DbSet<UserEntity> Users { get; set; }
+
+        public DbSet<EpisodeEntity> Episodes { get; set; }
+
+        public DbSet<EpisodeReviewEntity> EpisodeReviews { get; set; }
+
+        public DbSet<ShowReviewEntity> ShowReviews { get; set; }
+
+        public DbSet<StreamingPlatformEntity> StreamingPlatforms { get; set; }
+
+        public DbSet<TvShowEntity> TvShows { get; set; }
     }
 }
