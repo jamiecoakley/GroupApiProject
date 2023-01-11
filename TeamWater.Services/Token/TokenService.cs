@@ -8,7 +8,7 @@ using TeamWater.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
-// using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 // ^^ not working? 
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -42,11 +42,11 @@ namespace TeamWater.Services.Token
 
             // PASSWORD HASHER AND ASPNETCORE.IDENTITY NOT WORKING
 
-            // var passwordHasher = new PasswordHasher<UserEntity>();
+            var passwordHasher = new PasswordHasher<UserEntity>();
 
-            // var verifyPasswordResult = passwordHasher.VerifyHashedPassword(userEntity, userEntity user.Entity.Password, model.Password);
-            // if (verifyPasswordResult == PasswordVerificiationResult.Failed)
-            //     return null;
+            var verifyPasswordResult = passwordHasher.VerifyHashedPassword(userEntity, userEntity.Password, model.Password);
+            if (verifyPasswordResult == PasswordVerificationResult.Failed)
+                return null;
 
             return userEntity;
         }
