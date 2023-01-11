@@ -7,8 +7,9 @@ using TeamWater.Services.EpisodeReview;
 using TeamWater.Services.TvShow;
 using TeamWater.Services.TvShowReview;
 using TeamWater.Services.StreamingPlatform;
-
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,20 @@ builder.Services.AddScoped<ITvShowReviewService, TvShowReviewService>();
 builder.Services.AddScoped<IEpisodeService, EpisodeService>();
 builder.Services.AddScoped<IEpisodeReviewService, EpisodeReviewService>();
 builder.Services.AddScoped<IStreamingPlatformService, StreamingPlatformService>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
 
 builder.Services.AddHttpContextAccessor();
 

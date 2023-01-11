@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
-// ^^ not working? 
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -39,8 +38,6 @@ namespace TeamWater.Services.Token
             var userEntity = await _context.Users.FirstOrDefaultAsync(user => user.UserName.ToLower() == model.Username.ToLower());
             if (userEntity is null)
                 return null;
-
-            // PASSWORD HASHER AND ASPNETCORE.IDENTITY NOT WORKING
 
             var passwordHasher = new PasswordHasher<UserEntity>();
 
