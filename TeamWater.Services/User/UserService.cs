@@ -6,13 +6,15 @@ using Microsoft.EntityFrameworkCore;
 using TeamWater.Data;
 using TeamWater.Data.Entities;
 using TeamWater.Models.User;
+using TeamWater.Data;
 
 namespace TeamWater.Services.User
 {
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
-        public UserService(ApplicationDbContext context)
+
+        public UserService(ApplicationDbContext context) 
         {
             _context = context;
         }
@@ -45,6 +47,5 @@ namespace TeamWater.Services.User
         {
             return await _context.Users.FirstOrDefaultAsync(user => user.UserName.ToLower() == userName.ToLower());
         }
-
     }
 }
