@@ -7,6 +7,7 @@ using TeamWater.Data;
 using TeamWater.Data.Entities;
 using TeamWater.Models.User;
 using TeamWater.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace TeamWater.Services.User
 {
@@ -28,14 +29,17 @@ namespace TeamWater.Services.User
             {
                 Name = model.Name,
                 Email = model.Email,
-                UserName = model.UserName,
-                Password = model.Password
+                UserName = model.UserName,                
             };
 
-            _context.Users.Add(entity);
-            var numbeOfChanges = await _context.SaveChangesAsync();
+            var passwordHasher = new PasswordHasher<UserEntity>();
 
-            return numbeOfChanges == 1;
+            entity.Password = passwordHasher.HashPassword(entity, model.Password);
+
+            _context.Users.Add(entity);
+            var numberOfChanges = await _context.SaveChangesAsync();
+
+            return numberOfChanges == 1;
         }
         
         private async Task<UserEntity>GetUserByEmailAsync(string email)
