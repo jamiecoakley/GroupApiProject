@@ -8,10 +8,10 @@ using TeamWater.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
-// using Microsoft.AspNetCore.Identity;
-// ^^ not working? 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 
 namespace TeamWater.Services.Token
 {
@@ -40,13 +40,11 @@ namespace TeamWater.Services.Token
             if (userEntity is null)
                 return null;
 
-            // PASSWORD HASHER AND ASPNETCORE.IDENTITY NOT WORKING
+            var passwordHasher = new PasswordHasher<UserEntity>();
 
-            // var passwordHasher = new PasswordHasher<UserEntity>();
-
-            // var verifyPasswordResult = passwordHasher.VerifyHashedPassword(userEntity, userEntity user.Entity.Password, model.Password);
-            // if (verifyPasswordResult == PasswordVerificiationResult.Failed)
-            //     return null;
+            var verifyPasswordResult = passwordHasher.VerifyHashedPassword(userEntity, userEntity.Password, model.Password);
+            if (verifyPasswordResult == PasswordVerificationResult.Failed)
+                return null;
 
             return userEntity;
         }
@@ -55,7 +53,7 @@ namespace TeamWater.Services.Token
         {
             var claims = GetClaims(entity);
 
-            var securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var tokenDescriptor = new SecurityTokenDescriptor
