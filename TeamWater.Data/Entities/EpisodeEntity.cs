@@ -18,9 +18,10 @@ namespace TeamWater.Data.Entities
         [Required]
         public string TitleOfEpisode { get; set; }
 
+        [Required]
         public string SynopsisOfEpisode { get; set; }
 
-        //foreign key
+        // [ForeignKey]
         public int TvShowId { get; set; }
     }
 }

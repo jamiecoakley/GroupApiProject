@@ -7,6 +7,10 @@ namespace TeamWater.Models.EpisodeModels
 {
     public class EpisodeListItem
     {
-        
+        public int Id { get; set; }
+        public int NumberOfEpisode { get; set; }
+        public string TitleOfEpisode { get; set; }
+        public string SynopsisOfEpisode { get; set; }
+        public DateTimeOffset EpisodeCreated { get; set; }
     }
 }
