@@ -12,8 +12,8 @@ namespace TeamWater.WebAPI.Controllers
     [ApiController]
     public class EpisodeReviewController : ControllerBase
     {
-        private readonly EpisodeReviewService _episodeReviewService;
-        public EpisodeReviewController(EpisodeReviewService episodeReviewService)
+        private readonly IEpisodeReviewService _episodeReviewService;
+        public EpisodeReviewController(IEpisodeReviewService episodeReviewService)
         {
             _episodeReviewService = episodeReviewService;
         }
