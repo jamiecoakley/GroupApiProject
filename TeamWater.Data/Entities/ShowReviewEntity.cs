@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,6 +23,9 @@ namespace TeamWater.Data.Entities
         public DateTime DateOfReview { get; set; }
 
         //foreign key
+        [Required]
+        [ForeignKey(nameof(TvShow))]
         public int TvShowId { get; set; }
+        public virtual TvShowEntity TvShow { get; set; }
     }
 }
