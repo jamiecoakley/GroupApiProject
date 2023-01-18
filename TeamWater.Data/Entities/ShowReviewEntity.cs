@@ -16,11 +16,13 @@ namespace TeamWater.Data.Entities
         [Required]
         public int UserId { get; set; }
 
+        public string ReviewTitle { get; set; }
+
         public int ShowRating { get; set; }
         public string ReviewText { get; set; }
 
         [Required]
-        public DateTime DateOfReview { get; set; }
+        public DateTimeOffset DateOfReview { get; set; }
 
         //foreign key
         [Required]
