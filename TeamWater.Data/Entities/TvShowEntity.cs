@@ -4,20 +4,21 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using TeamWater.Data.Entities.Enums;
 
 namespace TeamWater.Data.Entities
 {
     public class TvShowEntity
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string ShowTitle { get; set; }
 
         public string ShowDescription { get; set; }
 
-        public string ShowGenre { get; set; }
+        public ShowGenre ShowGenre { get; set; }
 
         [Required]
         public int ShowEpisodes { get; set; } //# of episodes

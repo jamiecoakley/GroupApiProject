@@ -7,6 +7,8 @@ namespace TeamWater.Models.TVShow
 {
     public class TVShowDetails
     {
-        
+        public int ShowId { get; set; }
+        public string ShowTitle { get; set; }
+        public string ShowDescription { get; set; }
     }
 }

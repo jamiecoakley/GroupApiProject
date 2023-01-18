@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using TeamWater.Data;
 using TeamWater.Models.TVShow;
 using Microsoft.EntityFrameworkCore;
+using TeamWater.Data.Entities;
 
 namespace TeamWater.Services.TvShow
 {
@@ -26,14 +27,31 @@ namespace TeamWater.Services.TvShow
             _dbContext = dbContext;
         }
 
-        public Task<bool> CreateTVShowAsync(TVShowCreate request)
+        public async Task<bool> CreateTVShowAsync(TVShowCreate request)
         {
-            throw new NotImplementedException();
+            var showEntity = new TvShowEntity
+            {
+                UserId = _userId,
+                ShowTitle = request.ShowTitle,
+                ShowDescription = request.ShowDescription,
+                ShowGenre = request.ShowGenre,
+                ShowEpisodes = request.ShowEpisodes
+            };
+
+            _dbContext.TvShows.Add(showEntity);
+
+            var numberOfChanges = await _dbContext.SaveChangesAsync();
+            return numberOfChanges == 1;
         }
 
-        public Task<bool> DeleteTVShowAsync(int showId)
+        public async Task<bool> DeleteTVShowAsync(int showId)
         {
-            throw new NotImplementedException();
+            var tvShowEntity = await _dbContext.TvShows.FindAsync(showId);
+            // if (tvShowEntity?.UserId != _userId)
+            //     return false;
+
+            _dbContext.TvShows.Remove(tvShowEntity);
+                return await _dbContext.SaveChangesAsync() == 1;
         }
 
         public async Task<IEnumerable<TVShowListItem>> GetAllTvShowsAsync()
@@ -46,7 +64,6 @@ namespace TeamWater.Services.TvShow
                 {
                     ShowTitle = entity.ShowTitle,
                     ShowDescription = entity.ShowDescription,
-                    ShowGenre = entity.ShowGenre,
                     ShowEpisodes = entity.ShowEpisodes,
                     Reviews = entity.ShowReviewList.Select(e => new ShowReviewListItem{
                             Id = e.Id,
@@ -63,14 +80,47 @@ namespace TeamWater.Services.TvShow
             return shows;
         }
 
-        public Task<TVShowDetails> GetTVShowById(int showId)
+        public async Task<TVShowDetails> GetTVShowByIdAsync(int showId)
         {
-            throw new NotImplementedException();
+            var tvShowEntity = await _dbContext.TvShows
+                .FirstOrDefaultAsync (e => e.Id == showId);
+
+            return tvShowEntity is null ? null : new TVShowDetails
+            {
+                ShowId = tvShowEntity.Id,
+                ShowTitle = tvShowEntity.ShowTitle,
+                ShowDescription = tvShowEntity.ShowDescription
+            };
         }
 
-        public Task<bool> UpdateTVShowAsync(int showId, TVShowUpdate request)
+        // public Task<TVShowDetails> GetTVShowByTitleAsync(string title)
+        // {
+        //     var titleEntity = await _dbContext.TvShows
+        //         .FirstOrDefaultAsync (e => e.ShowTitle == title);
+
+        //     return titleEntity is null ? null : new TVShowDetails
+        //     {
+        //         ShowTitle = titleEntity.ShowTitle,
+        //         ShowDescription = titleEntity.ShowDescription
+        //     };
+        // }
+
+        public async Task<bool> UpdateTVShowAsync(TVShowUpdate request)
         {
-            throw new NotImplementedException();
+            var tvShowEntity = await _dbContext.TvShows.FindAsync(request.Id);
+            if (tvShowEntity?.UserId != _userId)
+                return false;
+            
+            tvShowEntity.Id = request.Id;
+            tvShowEntity.ShowTitle = request.ShowTitle;
+            tvShowEntity.ShowDescription = request.ShowDescription;
+            tvShowEntity.ShowGenre = request.ShowGenre;
+            tvShowEntity.ShowEpisodes = request.ShowEpisodes;
+            tvShowEntity.UserId = request.UserId;
+            tvShowEntity.PlatformId = request.PlatformId;
+
+            var numberOfChanges = await _dbContext.SaveChangesAsync();
+            return numberOfChanges == 1;
         }
     }
 }
