@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TeamWater.Services.TvShow;
 using Microsoft.AspNetCore.Authorization;
+using TeamWater.Models.TVShow;
 
 namespace TeamWater.WebAPI.Controllers
 {
@@ -26,6 +27,56 @@ namespace TeamWater.WebAPI.Controllers
         {
             var shows = await _tvShowService.GetAllTvShowsAsync();
             return Ok(shows);
+        }
+
+        [HttpPost]
+        [Route("/createshow")]
+        public async Task<IActionResult> CreateTVShow([FromBody] TVShowCreate request)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if(await _tvShowService.CreateTVShowAsync(request))
+                return Ok("TV Show entry created successfully!");
+
+            return BadRequest("TV Show entry failed to enter...");
+        }
+
+        [HttpGet]
+        [Route("/getshowbyid:{showId:int}")]
+        public async Task<IActionResult> GetTVShowById([FromRoute] int showId)
+        {
+            var detail = await _tvShowService.GetTVShowByIdAsync(showId);
+            return detail is not null ? Ok(detail) : NotFound();
+        }
+
+        // [HttpGet]
+        // [Route("/getshowbytitle:{showTitle:string}")]
+        // public async Task<IActionResult> GetTVShowByTitle([FromRoute] string showTitle)
+        // {
+        //     var detail = await _tvShowService.GetTVShowByTitleAsync(showTitle);
+        //     return detail is not null ? Ok(detail) : NotFound();
+        // }
+
+        [HttpPut]
+        [Route("/updateshow")]
+        public async Task<IActionResult> UpdateTvShowById([FromBody] TVShowUpdate request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return await _tvShowService.UpdateTVShowAsync(request)
+                ? Ok("TV Show Entry Successfully Updated!")
+                : BadRequest("TV Show Wasn't Updated.");
+        }
+
+        [HttpDelete]
+        [Route("/deleteshow")]
+        public async Task<IActionResult>DeleteTVShow([FromBody] int showId)
+        {
+            return await _tvShowService.DeleteTVShowAsync(showId)
+                ? Ok($"TV Show associated with ID #{showId} was successfully deleted.")
+                : BadRequest($"TV Show associated with ID #{showId} remains in the database.");
         }
     }
 
