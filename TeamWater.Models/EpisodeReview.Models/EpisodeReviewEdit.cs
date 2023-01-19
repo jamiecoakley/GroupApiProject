@@ -15,14 +15,19 @@ namespace TeamWater.Models.EpisodeReview.Models
         //foreign key that will trickle down
         [Required]
         public int UserId { get; set; }
-
+        
+        [Required]
         public int EpisodeRating { get; set; }
+       
+        [Required]
         public string EpisodeReviewText { get; set; }
 
         [Required]
         public DateTime DateOfReview { get; set; }
 
         //foreign key
+
+        [Required]
         public int EpisodeId { get; set; }
     }
 }

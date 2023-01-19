@@ -14,6 +14,7 @@ namespace TeamWater.Data.Entities
         //foreign key that will trickle down
         [Required]
         public int UserId { get; set; }
+        public  UserEntity UserEntity { get; set; }
 
         public int EpisodeRating { get; set; }
         public string EpisodeReviewText { get; set; }
@@ -23,5 +24,6 @@ namespace TeamWater.Data.Entities
 
         //foreign key
         public int EpisodeId { get; set; }
+        public EpisodeEntity EpisodeEntity { get; set; }
     }
 }
