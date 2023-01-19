@@ -9,8 +9,9 @@ namespace TeamWater.Models.TVShowReview
     {
         public int Id { get; set; }
         public int UserId { get; set; }
+        public string ReviewTitle { get; set; }
         public int ShowRating { get; set; }
         public string ReviewText { get; set; }
-        public DateTime DateOfReview { get; set; }
+        public DateTimeOffset DateOfReview { get; set; }
     }
 }
