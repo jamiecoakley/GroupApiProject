@@ -1,15 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+// using System;
+// using System.Collections.Generic;
+// using System.Linq;
+// using System.Threading.Tasks;
 
-namespace TeamWater.Models.TVShow
-{
-    public class EpisodeListItem
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Synopsis { get; set; }
+// namespace TeamWater.Models.TVShow
+// {
+//     public class EpisodeListItem
+//     {
+//         public int Id { get; set; }
+//         public string Title { get; set; }
+//         public string Synopsis { get; set; }
         
-    }
-}
+//     }
+// }

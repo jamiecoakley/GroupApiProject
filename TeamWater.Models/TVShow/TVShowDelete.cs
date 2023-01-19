@@ -7,6 +7,6 @@ namespace TeamWater.Models.TVShow
 {
     public class TVShowDelete
     {
-        
+        public int ShowId { get; set; }
     }
 }

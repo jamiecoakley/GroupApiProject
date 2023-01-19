@@ -8,6 +8,8 @@ using TeamWater.Data;
 using TeamWater.Models.TVShow;
 using Microsoft.EntityFrameworkCore;
 using TeamWater.Data.Entities;
+using TeamWater.Models.TVShowReview;
+using TeamWater.Models.EpisodeModels;
 
 namespace TeamWater.Services.TvShow
 {
@@ -47,11 +49,15 @@ namespace TeamWater.Services.TvShow
         public async Task<bool> DeleteTVShowAsync(int showId)
         {
             var tvShowEntity = await _dbContext.TvShows.FindAsync(showId);
-            // if (tvShowEntity?.UserId != _userId)
-            //     return false;
+            if (tvShowEntity == null)
+                return false; 
+
+            if (tvShowEntity?.UserId != _userId)
+                return false;
 
             _dbContext.TvShows.Remove(tvShowEntity);
-                return await _dbContext.SaveChangesAsync() == 1;
+                await _dbContext.SaveChangesAsync();
+                return true;           
         }
 
         public async Task<IEnumerable<TVShowListItem>> GetAllTvShowsAsync()
@@ -66,14 +72,16 @@ namespace TeamWater.Services.TvShow
                     ShowDescription = entity.ShowDescription,
                     ShowEpisodes = entity.ShowEpisodes,
                     Reviews = entity.ShowReviewList.Select(e => new ShowReviewListItem{
-                            Id = e.Id,
-                            Score = e.ShowRating,
-                            ReviewDetails = e.ReviewText
+                            // Id = e.Id,
+                            ShowRating = e.ShowRating,
+                            ReviewText = e.ReviewText,
+                            UserId = e.UserId
                     }).ToList(),
                     Episodes = entity.EpisodeList.Select(e => new EpisodeListItem{
-                            Id = e.Id,
-                            Synopsis = e.SynopsisOfEpisode,
-                            Title = e.TitleOfEpisode
+                            // Id = e.Id,
+                            NumberOfEpisode = e.NumberOfEpisode,
+                            TitleOfEpisode = e.TitleOfEpisode,
+                            SynopsisOfEpisode = e.SynopsisOfEpisode
                     }).ToList()
                 })
                 .ToListAsync();
@@ -93,17 +101,17 @@ namespace TeamWater.Services.TvShow
             };
         }
 
-        // public Task<TVShowDetails> GetTVShowByTitleAsync(string title)
-        // {
-        //     var titleEntity = await _dbContext.TvShows
-        //         .FirstOrDefaultAsync (e => e.ShowTitle == title);
+        public async Task<TVShowDetails> GetTVShowByTitleAsync(string title)
+        {
+            var titleEntity = await _dbContext.TvShows
+                .FirstOrDefaultAsync (e => e.ShowTitle == title);
 
-        //     return titleEntity is null ? null : new TVShowDetails
-        //     {
-        //         ShowTitle = titleEntity.ShowTitle,
-        //         ShowDescription = titleEntity.ShowDescription
-        //     };
-        // }
+            return titleEntity is null ? null : new TVShowDetails
+            {
+                ShowTitle = titleEntity.ShowTitle,
+                ShowDescription = titleEntity.ShowDescription
+            };
+        }
 
         public async Task<bool> UpdateTVShowAsync(TVShowUpdate request)
         {
@@ -117,7 +125,7 @@ namespace TeamWater.Services.TvShow
             tvShowEntity.ShowGenre = request.ShowGenre;
             tvShowEntity.ShowEpisodes = request.ShowEpisodes;
             tvShowEntity.UserId = request.UserId;
-            tvShowEntity.PlatformId = request.PlatformId;
+            //tvShowEntity.PlatformId = request.PlatformId;
 
             var numberOfChanges = await _dbContext.SaveChangesAsync();
             return numberOfChanges == 1;

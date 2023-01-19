@@ -43,20 +43,20 @@ namespace TeamWater.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("/getshowbyid:{showId:int}")]
+        [Route("/getshowbyid/{showId:int}")]
         public async Task<IActionResult> GetTVShowById([FromRoute] int showId)
         {
             var detail = await _tvShowService.GetTVShowByIdAsync(showId);
             return detail is not null ? Ok(detail) : NotFound();
         }
 
-        // [HttpGet]
-        // [Route("/getshowbytitle:{showTitle:string}")]
-        // public async Task<IActionResult> GetTVShowByTitle([FromRoute] string showTitle)
-        // {
-        //     var detail = await _tvShowService.GetTVShowByTitleAsync(showTitle);
-        //     return detail is not null ? Ok(detail) : NotFound();
-        // }
+        [HttpGet]
+        [Route("/getshowbytitle")]
+        public async Task<IActionResult> GetTVShowByTitle([FromQuery] string showTitle)
+        {
+            var detail = await _tvShowService.GetTVShowByTitleAsync(showTitle);
+            return detail is not null ? Ok(detail) : NotFound();
+        }
 
         [HttpPut]
         [Route("/updateshow")]
@@ -71,8 +71,8 @@ namespace TeamWater.WebAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("/deleteshow")]
-        public async Task<IActionResult>DeleteTVShow([FromBody] int showId)
+        [Route("{showId:int}")]
+        public async Task<IActionResult>DeleteTVShow(int showId)
         {
             return await _tvShowService.DeleteTVShowAsync(showId)
                 ? Ok($"TV Show associated with ID #{showId} was successfully deleted.")
