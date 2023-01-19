@@ -33,12 +33,13 @@ namespace TeamWater.Services.TvShowReview
         {
             var showReviewEntity = new ShowReviewEntity
             {
-                // TvShow = request.ShowTitle,
+                TvShowId = request.TvShowId,
                 ShowRating = request.ShowRating,
                 ReviewText = request.ReviewText,
                 UserId = _userId
             };
-            await _context.AddAsync(showReviewEntity);
+            _context.ShowReviews.Add(showReviewEntity);
+
             var numberOfChanges = await _context.SaveChangesAsync();
             return numberOfChanges == 1;
         }
@@ -61,6 +62,7 @@ namespace TeamWater.Services.TvShowReview
             .Select(entity => new ShowReviewListItem
             {
                 Id = entity.Id,
+                ReviewTitle = entity.ReviewTitle,
                 ShowRating = entity.ShowRating,
                 ReviewText = entity.ReviewText,
                 DateOfReview = entity.DateOfReview
@@ -69,43 +71,39 @@ namespace TeamWater.Services.TvShowReview
             return reviews;
         }
 
-        public Task<ShowReviewDetails> GetShowReviewByIdAsync(int showReviewId)
+        public async Task<ShowReviewDetails> GetShowReviewByIdAsync(int showReviewId)
         {
-            //     var showReviewEntity = await _context.ShowReviews
-            //     .FirstOrDefaultAsync(e =>
-            //     e.Id == showReviewId && e.UserId == _userId);
+            var showReviewEntity = await _context.ShowReviews
+            .Include(s => s.TvShow)
+            .FirstOrDefaultAsync(e => e.Id == showReviewId);
 
-            // return showReviewEntity is null ? null : new ShowReviewDetails
-            // {
-            //     Id = showReviewEntity.Id,
-            //     ShowTitle = showReviewEntity.TvShow,
-            //     ReviewText = showReviewEntity.ReviewText,
-            //     ShowRating = showReviewEntity.ShowRating,
-            //     DateOfReview = showReviewEntity.DateOfReview
+            return showReviewEntity is null ? null : new ShowReviewDetails
+            {
+                Id = showReviewEntity.Id,
+                TvShowName = showReviewEntity.TvShow.ShowTitle,
+                ReviewTitle = showReviewEntity.ReviewTitle,
+                ReviewText = showReviewEntity.ReviewText,
+                ShowRating = showReviewEntity.ShowRating,
+                DateOfReview = showReviewEntity.DateOfReview
 
-            throw new NotImplementedException();
+                // throw new NotImplementedException();
 
-            // };
+            };
         }
 
-        public Task<bool> UpdateNoteAsync(ShowReviewUpdate request)
+        public async Task<bool> UpdateTvShowReviewAsync(ShowReviewUpdate request)
         {
-            // var showReviewEntity = await _context.ShowReviews.FindAsync(request.Id);
+            var showReviewEntity = await _context.ShowReviews.FindAsync(request.Id);
+            if (showReviewEntity?.UserId != _userId)
+                return false;
 
-            // if (showReviewEntity?.UserId != _userId)
-            //     return false;
+            showReviewEntity.Id = request.Id;
+            showReviewEntity.ReviewTitle = request.ReviewTitle;
+            showReviewEntity.ReviewText = request.ReviewText;
+            showReviewEntity.DateOfReview = DateTimeOffset.Now;
 
-            // showReviewEntity.ReviewTitle = request.ReviewTitle;
-            // showReviewEntity.ShowRating = request.ShowRating;
-            // showReviewEntity.ReviewText = request.ReviewText;
-            // showReviewEntity.DateOfReview = DateTimeOffset.Now;
-
-            // var numberOfChanges = await _context.SaveChangesAsync();
-
-            // return numberOfChanges == 1;
-
-            throw new NotImplementedException();
-
+            var numberOfChanges = await _context.SaveChangesAsync();
+            return numberOfChanges == 1;
         }
     }
 }

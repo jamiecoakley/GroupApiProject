@@ -11,7 +11,7 @@ namespace TeamWater.Services.TvShowReview
         Task<bool> CreateShowReviewAsync(ShowReviewCreate request);
         Task<IEnumerable<ShowReviewListItem>> GetAllShowReviewsAsync();
         Task<ShowReviewDetails> GetShowReviewByIdAsync(int showReviewId);
-        Task<bool> UpdateNoteAsync(ShowReviewUpdate request);
+        Task<bool> UpdateTvShowReviewAsync(ShowReviewUpdate request);
         Task<bool> DeleteShowReviewAsync(int showReviewId);
     }
 }

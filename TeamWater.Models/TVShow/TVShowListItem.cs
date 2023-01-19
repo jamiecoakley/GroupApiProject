@@ -12,7 +12,7 @@ namespace TeamWater.Models.TVShow
         public string ShowDescription { get; set; }
         public int ShowEpisodes { get; set; }
 
-        public List<ShowReviewListItem> Reviews { get;set; }
+        public List<ShowReviewListItem> Reviews { get; set; }
         public List<EpisodeListItem> Episodes { get; set; }
     }
 }

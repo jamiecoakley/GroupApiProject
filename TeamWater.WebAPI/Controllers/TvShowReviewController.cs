@@ -57,7 +57,7 @@ namespace TeamWater.WebAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return await _tvShowReviewService.UpdateNoteAsync(request)
+            return await _tvShowReviewService.UpdateTvShowReviewAsync(request)
                 ? Ok("Show Review updated successfully.")
                 : BadRequest("Show Review could not be updated.");
         }
