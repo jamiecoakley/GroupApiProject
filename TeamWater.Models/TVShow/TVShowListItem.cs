@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TeamWater.Models.EpisodeModels;
+using TeamWater.Models.TVShowReview;
 
 namespace TeamWater.Models.TVShow
 {

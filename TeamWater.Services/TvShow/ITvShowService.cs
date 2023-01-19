@@ -10,7 +10,7 @@ namespace TeamWater.Services.TvShow
     {
         Task<TVShowDetails> GetTVShowByIdAsync(int showId);
 
-        //Task<TVShowDetails>GetTVShowByTitleAsync(string title);
+        Task<TVShowDetails>GetTVShowByTitleAsync(string title);
         Task<bool> CreateTVShowAsync(TVShowCreate request);
         Task<bool> UpdateTVShowAsync(TVShowUpdate request);
         Task<bool> DeleteTVShowAsync(int showId);
