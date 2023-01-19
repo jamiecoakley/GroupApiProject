@@ -7,12 +7,9 @@ namespace TeamWater.Models.EpisodeReview.Models
 {
     public class EpisodeReviewListItem
     {
-        public int Id { get; set; }
-
         //foreign key that will trickle down
        
-        public int UserId { get; set; }
-        public string Name { get; set; }
-           public int EpisodeId { get; set; }
+        public string UserName { get; set; }
+           public string EpisodeName { get; set; }
     }
 }
