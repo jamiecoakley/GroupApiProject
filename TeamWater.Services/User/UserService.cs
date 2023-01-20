@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using TeamWater.Data;
 using TeamWater.Data.Entities;
 using TeamWater.Models.User;
-using TeamWater.Data;
 using Microsoft.AspNetCore.Identity;
 
 namespace TeamWater.Services.User

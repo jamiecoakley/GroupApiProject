@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace TeamWater.Models.EpisodeModels
 {
-    public class EpisodeDelete
+    public class EpisodeReviewListItem
     {
-        public int EpisodeId { get; set; }
+        
     }
 }

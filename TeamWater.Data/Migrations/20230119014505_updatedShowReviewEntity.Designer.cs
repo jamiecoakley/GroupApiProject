@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamWater.Data;
 
@@ -11,9 +12,11 @@ using TeamWater.Data;
 namespace TeamWater.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230119014505_updatedShowReviewEntity")]
+    partial class updatedShowReviewEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,9 +68,6 @@ namespace TeamWater.Data.Migrations
                     b.Property<DateTime>("DateOfReview")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EpisodeEntityId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EpisodeId")
                         .HasColumnType("int");
 
@@ -78,17 +78,10 @@ namespace TeamWater.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserEntityId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EpisodeEntityId");
-
-                    b.HasIndex("UserEntityId");
 
                     b.ToTable("EpisodeReviews");
                 });
@@ -177,9 +170,14 @@ namespace TeamWater.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PlatformId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("TvShows");
                 });
@@ -221,25 +219,6 @@ namespace TeamWater.Data.Migrations
                         .HasForeignKey("TvShowEntityId");
                 });
 
-            modelBuilder.Entity("TeamWater.Data.Entities.EpisodeReviewEntity", b =>
-                {
-                    b.HasOne("TeamWater.Data.Entities.EpisodeEntity", "EpisodeEntity")
-                        .WithMany()
-                        .HasForeignKey("EpisodeEntityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TeamWater.Data.Entities.UserEntity", "UserEntity")
-                        .WithMany()
-                        .HasForeignKey("UserEntityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("EpisodeEntity");
-
-                    b.Navigation("UserEntity");
-                });
-
             modelBuilder.Entity("TeamWater.Data.Entities.ShowReviewEntity", b =>
                 {
                     b.HasOne("TeamWater.Data.Entities.TvShowEntity", "TvShow")
@@ -256,6 +235,14 @@ namespace TeamWater.Data.Migrations
                     b.HasOne("TeamWater.Data.Entities.StreamingPlatformEntity", "WhereToStream")
                         .WithMany()
                         .HasForeignKey("PlatformId");
+
+                    b.HasOne("TeamWater.Data.Entities.UserEntity", "Owner")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
 
                     b.Navigation("WhereToStream");
                 });
