@@ -23,5 +23,7 @@ namespace TeamWater.Models.EpisodeModels
         [MinLength(1, ErrorMessage = "Title of Episode must be at least 1 characters long.")]
         [MaxLength(500, ErrorMessage = "Title of Episode cannot exceed 500 characters")]
         public string SynopsisOfEpisode { get; set; }
+
+        public int UserId { get; set; }
     }
 }
