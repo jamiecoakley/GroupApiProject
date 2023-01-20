@@ -12,5 +12,7 @@ namespace TeamWater.Models.EpisodeModels
         public string TitleOfEpisode { get; set; }
         public string SynopsisOfEpisode { get; set; }
         public DateTimeOffset EpisodeCreated { get; set; }
+
+        public List<EpisodeReviewListItem> EpisodeReviews {get; set;}
     }
 }
