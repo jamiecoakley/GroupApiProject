@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TeamWater.Models.User;
 using TeamWater.Services.Episode;
 
 namespace TeamWater.WebAPI.Controllers
@@ -17,5 +18,6 @@ namespace TeamWater.WebAPI.Controllers
         {
             _episodeService = episodeService;
         }
+        
     }
 }
