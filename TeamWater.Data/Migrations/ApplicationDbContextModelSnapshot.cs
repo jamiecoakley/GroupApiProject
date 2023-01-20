@@ -51,7 +51,7 @@ namespace TeamWater.Data.Migrations
 
                     b.HasIndex("TvShowEntityId");
 
-                    b.ToTable("Episodes");
+                    b.ToTable("Episodes", (string)null);
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.EpisodeReviewEntity", b =>
@@ -80,7 +80,7 @@ namespace TeamWater.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EpisodeReviews");
+                    b.ToTable("EpisodeReviews", (string)null);
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.ShowReviewEntity", b =>
@@ -115,7 +115,7 @@ namespace TeamWater.Data.Migrations
 
                     b.HasIndex("TvShowId");
 
-                    b.ToTable("ShowReviews");
+                    b.ToTable("ShowReviews", (string)null);
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.StreamingPlatformEntity", b =>
@@ -139,7 +139,7 @@ namespace TeamWater.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StreamingPlatforms");
+                    b.ToTable("StreamingPlatforms", (string)null);
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.TvShowEntity", b =>
@@ -176,7 +176,7 @@ namespace TeamWater.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TvShows");
+                    b.ToTable("TvShows", (string)null);
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.UserEntity", b =>
@@ -206,7 +206,7 @@ namespace TeamWater.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.EpisodeEntity", b =>
