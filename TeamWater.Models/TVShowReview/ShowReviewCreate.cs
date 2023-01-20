@@ -17,7 +17,6 @@ namespace TeamWater.Models.TVShowReview
         public string ReviewTitle { get; set; }
 
         [Required]
-        // [MaxLength(8000, ErrorMessage = "{0} must contain no more than {1} characters.")]
         public int ShowRating { get; set; }
 
         [Required]

@@ -33,7 +33,7 @@ namespace TeamWater.Services.TvShow
         {
             var showEntity = new TvShowEntity
             {
-                UserId = _userId,
+                //UserId = _userId,
                 ShowTitle = request.ShowTitle,
                 ShowDescription = request.ShowDescription,
                 ShowGenre = request.ShowGenre,
@@ -52,8 +52,8 @@ namespace TeamWater.Services.TvShow
             if (tvShowEntity == null)
                 return false; 
 
-            if (tvShowEntity?.UserId != _userId)
-                return false;
+            // if (tvShowEntity?.UserId != _userId)
+            //     return false;
 
             _dbContext.TvShows.Remove(tvShowEntity);
                 await _dbContext.SaveChangesAsync();
@@ -65,17 +65,17 @@ namespace TeamWater.Services.TvShow
             var shows = await _dbContext.TvShows
                 .Include(e => e.ShowReviewList)
                 .Include(e => e.EpisodeList)
-                .Where(entity => entity.UserId == _userId)
+                //.Where(entity => entity.UserId == _userId)
                 .Select(entity => new TVShowListItem
                 {
                     ShowTitle = entity.ShowTitle,
                     ShowDescription = entity.ShowDescription,
                     ShowEpisodes = entity.ShowEpisodes,
                     Reviews = entity.ShowReviewList.Select(e => new ShowReviewListItem{
-                            // Id = e.Id,
+                            Id = e.Id,
                             ShowRating = e.ShowRating,
                             ReviewText = e.ReviewText,
-                            UserId = e.UserId
+                            //UserId = e.UserId
                     }).ToList(),
                     Episodes = entity.EpisodeList.Select(e => new EpisodeListItem{
                             // Id = e.Id,
@@ -116,15 +116,15 @@ namespace TeamWater.Services.TvShow
         public async Task<bool> UpdateTVShowAsync(TVShowUpdate request)
         {
             var tvShowEntity = await _dbContext.TvShows.FindAsync(request.Id);
-            if (tvShowEntity?.UserId != _userId)
-                return false;
+            // if (tvShowEntity?.UserId != _userId)
+            //     return false;
             
             tvShowEntity.Id = request.Id;
             tvShowEntity.ShowTitle = request.ShowTitle;
             tvShowEntity.ShowDescription = request.ShowDescription;
             tvShowEntity.ShowGenre = request.ShowGenre;
             tvShowEntity.ShowEpisodes = request.ShowEpisodes;
-            tvShowEntity.UserId = request.UserId;
+            //tvShowEntity.UserId = request.UserId;
             //tvShowEntity.PlatformId = request.PlatformId;
 
             var numberOfChanges = await _dbContext.SaveChangesAsync();
