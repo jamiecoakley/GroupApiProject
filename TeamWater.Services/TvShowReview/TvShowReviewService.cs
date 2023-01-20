@@ -34,11 +34,13 @@ namespace TeamWater.Services.TvShowReview
             var showReviewEntity = new ShowReviewEntity
             {
                 TvShowId = request.TvShowId,
+                ReviewTitle = request.ReviewTitle,
                 ShowRating = request.ShowRating,
                 ReviewText = request.ReviewText,
+                DateOfReview = DateTimeOffset.Now,
                 UserId = _userId
             };
-            _context.ShowReviews.Add(showReviewEntity);
+            await _context.ShowReviews.AddAsync(showReviewEntity);
 
             var numberOfChanges = await _context.SaveChangesAsync();
             return numberOfChanges == 1;
@@ -85,15 +87,13 @@ namespace TeamWater.Services.TvShowReview
                 ReviewText = showReviewEntity.ReviewText,
                 ShowRating = showReviewEntity.ShowRating,
                 DateOfReview = showReviewEntity.DateOfReview
-
-                // throw new NotImplementedException();
-
             };
         }
 
         public async Task<bool> UpdateTvShowReviewAsync(ShowReviewUpdate request)
         {
             var showReviewEntity = await _context.ShowReviews.FindAsync(request.Id);
+            if (showReviewEntity == null) return false;
             if (showReviewEntity?.UserId != _userId)
                 return false;
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamWater.Data;
 
@@ -11,9 +12,11 @@ using TeamWater.Data;
 namespace TeamWater.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230119235125_TestingFunctionsWithoutUserIdToSeeIfGetAllAndListsWork")]
+    partial class TestingFunctionsWithoutUserIdToSeeIfGetAllAndListsWork
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +54,7 @@ namespace TeamWater.Data.Migrations
 
                     b.HasIndex("TvShowEntityId");
 
-                    b.ToTable("Episodes", (string)null);
+                    b.ToTable("Episodes");
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.EpisodeReviewEntity", b =>
@@ -86,8 +89,6 @@ namespace TeamWater.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EpisodeReviews", (string)null);
-                    
                     b.HasIndex("EpisodeEntityId");
 
                     b.HasIndex("UserEntityId");
@@ -127,7 +128,7 @@ namespace TeamWater.Data.Migrations
 
                     b.HasIndex("TvShowId");
 
-                    b.ToTable("ShowReviews", (string)null);
+                    b.ToTable("ShowReviews");
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.StreamingPlatformEntity", b =>
@@ -151,7 +152,7 @@ namespace TeamWater.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StreamingPlatforms", (string)null);
+                    b.ToTable("StreamingPlatforms");
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.TvShowEntity", b =>
@@ -183,12 +184,7 @@ namespace TeamWater.Data.Migrations
 
                     b.HasIndex("PlatformId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("TvShows", (string)null);
-                    
                     b.ToTable("TvShows");
-
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.UserEntity", b =>
@@ -218,7 +214,7 @@ namespace TeamWater.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.EpisodeEntity", b =>

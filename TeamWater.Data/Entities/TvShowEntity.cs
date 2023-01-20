@@ -24,9 +24,9 @@ namespace TeamWater.Data.Entities
         public int ShowEpisodes { get; set; } //# of episodes
 
         //foreign keys
-        [ForeignKey(nameof (Owner))]
-        public int UserId { get; set; }
-        public UserEntity Owner { get; set; }
+        //[ForeignKey(nameof (Owner))]
+        //public int UserId { get; set; }
+        //public UserEntity Owner { get; set; }
 
         [ForeignKey(nameof(WhereToStream))]
         public int? PlatformId { get; set; }

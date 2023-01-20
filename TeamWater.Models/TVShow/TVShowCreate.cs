@@ -19,7 +19,7 @@ namespace TeamWater.Models.TVShow
         [Required]
         public int ShowEpisodes { get; set; } //# of episodes
         [Required]
-        public int UserId { get; set; }
+        //public int UserId { get; set; }
         public int? PlatformId { get; set; }
 
     }

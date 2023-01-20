@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TeamWater.Models.User;
 using TeamWater.Services.Episode;
 using TeamWater.Models.EpisodeModels;
 using TeamWater.Models;
