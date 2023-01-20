@@ -26,10 +26,10 @@ namespace TeamWater.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var registerResult = await _service.RegisterUserAsync(model);
-            {
-                return Ok("User was registered.");
-            }
+            // var registerResult = await _service.RegisterUserAsync(model);
+            // {
+            //     return Ok("User was registered.");
+            // }
             return BadRequest("User could not be registered.");
     }
 }
