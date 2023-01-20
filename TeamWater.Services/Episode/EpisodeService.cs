@@ -102,8 +102,6 @@ namespace TeamWater.Services.Episode
             _dbContext.Episodes.Remove(EpisodeEntity);
             await _dbContext.SaveChangesAsync();
             return true;
-
-            // TESTING UPDATE
         }
     }
 }
