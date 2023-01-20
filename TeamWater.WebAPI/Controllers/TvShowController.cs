@@ -22,6 +22,7 @@ namespace TeamWater.WebAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("/seeallshows")]
         public async Task<IActionResult> GetAllTvShows()
         {
@@ -30,6 +31,8 @@ namespace TeamWater.WebAPI.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("/createshow")]
         public async Task<IActionResult> CreateTVShow([FromBody] TVShowCreate request)
         {
@@ -43,6 +46,8 @@ namespace TeamWater.WebAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route("/getshowbyid/{showId:int}")]
         public async Task<IActionResult> GetTVShowById([FromRoute] int showId)
         {
@@ -51,6 +56,8 @@ namespace TeamWater.WebAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route("/getshowbytitle")]
         public async Task<IActionResult> GetTVShowByTitle([FromQuery] string showTitle)
         {
@@ -59,6 +66,8 @@ namespace TeamWater.WebAPI.Controllers
         }
 
         [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("/updateshow")]
         public async Task<IActionResult> UpdateTvShowById([FromBody] TVShowUpdate request)
         {
@@ -71,6 +80,8 @@ namespace TeamWater.WebAPI.Controllers
         }
 
         [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("{showId:int}")]
         public async Task<IActionResult>DeleteTVShow(int showId)
         {
@@ -79,6 +90,4 @@ namespace TeamWater.WebAPI.Controllers
                 : BadRequest($"TV Show associated with ID #{showId} remains in the database.");
         }
     }
-
-
 }

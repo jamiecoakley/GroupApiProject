@@ -34,6 +34,7 @@ namespace TeamWater.Services.TvShowReview
             var showReviewEntity = new ShowReviewEntity
             {
                 TvShowId = request.TvShowId,
+                ReviewTitle = request.ReviewTitle,
                 ShowRating = request.ShowRating,
                 ReviewText = request.ReviewText,
                 UserId = _userId
