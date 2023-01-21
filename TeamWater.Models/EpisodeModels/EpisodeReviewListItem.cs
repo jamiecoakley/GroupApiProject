@@ -7,6 +7,6 @@ namespace TeamWater.Models.EpisodeModels
 {
     public class EpisodeReviewListItem
     {
-        
+
     }
 }

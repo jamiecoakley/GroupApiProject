@@ -31,15 +31,16 @@ namespace TeamWater.Services.Episode
 
         public async Task<bool> CreateEpisodeAsync(EpisodeCreate request)
         {
-            var EpisodeEntity = new EpisodeEntity
+            var episodeEntity = new EpisodeEntity
             {
                 UserId = _userId,
+                TvShowId = request.TvShowId,
                 NumberOfEpisode = request.NumberOfEpisode,
                 TitleOfEpisode = request.TitleOfEpisode,
                 SynopsisOfEpisode = request.SynopsisOfEpisode
             };
 
-            _dbContext.Episodes.Add(EpisodeEntity);
+            _dbContext.Episodes.Add(episodeEntity);
 
             var numberOfChanges = await _dbContext.SaveChangesAsync();
             return numberOfChanges == 1;
@@ -59,17 +60,29 @@ namespace TeamWater.Services.Episode
             return Episode;
         }
 
-        public async Task<EpisodeDetails> GetEpisodeByIdAsync (int EpisodeId)
+        public async Task<EpisodeDetails> GetEpisodeByTitleAsync(string eTitle)
         {
-            var EpisodeEntity = await _dbContext.Episodes
-                .FirstOrDefaultAsync (e => e.Id == EpisodeId);
+            var titleEntity = await _dbContext.Episodes
+                .FirstOrDefaultAsync (e => e.TitleOfEpisode == eTitle);
 
-            return EpisodeEntity is null ? null : new EpisodeDetails
+            return titleEntity is null ? null : new EpisodeDetails
             {
-                EpisodeId = EpisodeEntity.Id,
-                NumberOfEpisode = EpisodeEntity.NumberOfEpisode,
-                TitleOfEpisode = EpisodeEntity.TitleOfEpisode,
-                SynopsisOfEpisode = EpisodeEntity.SynopsisOfEpisode
+                TitleOfEpisode = titleEntity.TitleOfEpisode,
+                SynopsisOfEpisode = titleEntity.SynopsisOfEpisode
+            };
+        }
+
+        public async Task<EpisodeDetails> GetEpisodeByIdAsync (int episodeId)
+        {
+            var episodeEntity = await _dbContext.Episodes
+                .FirstOrDefaultAsync(e => e.Id == episodeId);
+
+            return episodeEntity is null ? null : new EpisodeDetails
+            {
+                EpisodeId = episodeEntity.Id,
+                NumberOfEpisode = episodeEntity.NumberOfEpisode,
+                TitleOfEpisode = episodeEntity.TitleOfEpisode,
+                SynopsisOfEpisode = episodeEntity.SynopsisOfEpisode
             };
         }
 
