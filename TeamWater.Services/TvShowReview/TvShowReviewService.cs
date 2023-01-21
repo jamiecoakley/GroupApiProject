@@ -101,6 +101,7 @@ namespace TeamWater.Services.TvShowReview
             showReviewEntity.Id = request.Id;
             showReviewEntity.ReviewTitle = request.ReviewTitle;
             showReviewEntity.ReviewText = request.ReviewText;
+            showReviewEntity.ShowRating = request.ShowRating;
             showReviewEntity.DateOfReview = DateTimeOffset.Now;
 
             var numberOfChanges = await _context.SaveChangesAsync();
