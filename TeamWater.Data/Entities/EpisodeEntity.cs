@@ -18,9 +18,17 @@ namespace TeamWater.Data.Entities
         [Required]
         public string TitleOfEpisode { get; set; }
 
+        [Required]
         public string SynopsisOfEpisode { get; set; }
 
-        //foreign key
+        [Required]
+        public int UserId { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(TvShow))]
         public int TvShowId { get; set; }
+        public virtual TvShowEntity TvShow { get; set; }
+
+        public List<EpisodeReviewEntity> EpisodeReviewList { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamWater.Data;
 
@@ -11,9 +12,11 @@ using TeamWater.Data;
 namespace TeamWater.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230119235125_TestingFunctionsWithoutUserIdToSeeIfGetAllAndListsWork")]
+    partial class TestingFunctionsWithoutUserIdToSeeIfGetAllAndListsWork
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,15 +44,15 @@ namespace TeamWater.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TvShowId")
+                    b.Property<int?>("TvShowEntityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("TvShowId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TvShowId");
+                    b.HasIndex("TvShowEntityId");
 
                     b.ToTable("Episodes");
                 });
@@ -216,19 +219,15 @@ namespace TeamWater.Data.Migrations
 
             modelBuilder.Entity("TeamWater.Data.Entities.EpisodeEntity", b =>
                 {
-                    b.HasOne("TeamWater.Data.Entities.TvShowEntity", "TvShow")
+                    b.HasOne("TeamWater.Data.Entities.TvShowEntity", null)
                         .WithMany("EpisodeList")
-                        .HasForeignKey("TvShowId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TvShow");
+                        .HasForeignKey("TvShowEntityId");
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.EpisodeReviewEntity", b =>
                 {
                     b.HasOne("TeamWater.Data.Entities.EpisodeEntity", "EpisodeEntity")
-                        .WithMany("EpisodeReviewList")
+                        .WithMany()
                         .HasForeignKey("EpisodeEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -262,11 +261,6 @@ namespace TeamWater.Data.Migrations
                         .HasForeignKey("PlatformId");
 
                     b.Navigation("WhereToStream");
-                });
-
-            modelBuilder.Entity("TeamWater.Data.Entities.EpisodeEntity", b =>
-                {
-                    b.Navigation("EpisodeReviewList");
                 });
 
             modelBuilder.Entity("TeamWater.Data.Entities.TvShowEntity", b =>

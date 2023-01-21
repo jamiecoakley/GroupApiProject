@@ -4,26 +4,30 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TeamWater.Data.Entities
+namespace TeamWater.Models.EpisodeReview.Models
 {
-    public class EpisodeReviewEntity
+    public class EpisodeReviewEdit
     {
-        [Key]
+        
+        [Required]
         public int Id { get; set; }
 
         //foreign key that will trickle down
         [Required]
         public int UserId { get; set; }
-        public  UserEntity UserEntity { get; set; }
-
+        
+        [Required]
         public int EpisodeRating { get; set; }
+       
+        [Required]
         public string EpisodeReviewText { get; set; }
 
         [Required]
         public DateTime DateOfReview { get; set; }
 
         //foreign key
+
+        [Required]
         public int EpisodeId { get; set; }
-        public EpisodeEntity EpisodeEntity { get; set; }
     }
 }
