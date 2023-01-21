@@ -1,4 +1,4 @@
-#Team Water - Group API Project 
+# Team Water - Group API Project 
 
 The Group API Project is a collaborate database where users can create, read, update, delete TV shows entires and episodes associated with that TV Show as well as reviews for each TV show and episode. 
 
