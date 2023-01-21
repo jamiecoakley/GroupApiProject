@@ -63,6 +63,7 @@ namespace TeamWater.Services.TvShowReview
             .Where(entity => entity.UserId == _userId)
             .Select(entity => new ShowReviewListItem
             {
+                // UserId = entity.UserId,
                 Id = entity.Id,
                 ReviewTitle = entity.ReviewTitle,
                 ShowRating = entity.ShowRating,
