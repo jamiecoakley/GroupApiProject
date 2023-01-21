@@ -11,7 +11,8 @@ namespace TeamWater.Services.Episode
     {
         Task<bool> CreateEpisodeAsync(EpisodeCreate request);
         Task<IEnumerable<EpisodeListItem>> GetAllEpisodesAsync();
-        Task<EpisodeDetails> GetEpisodeByIdAsync(int EpisodeId);
+        Task<EpisodeDetails>GetEpisodeByTitleAsync(string eTitle);
+        Task<EpisodeDetails> GetEpisodeByIdAsync(int episodeId);
         Task<bool> UpdateEpisodeAsync(EpisodeUpdate request);
         Task<bool> DeleteEpisodeAsync(int EpisodeId);
     }
