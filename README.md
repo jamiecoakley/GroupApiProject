@@ -16,7 +16,7 @@ Please make sure to have .NET 7.0 installed to run this project properly.
 
 ## Installation 
 
-To install, please clone repository through the main GitHub page. Once cloned, make sure to run a dotnet build. This project can be seen through Swagger or Postman. 
+To install, please clone repository through the main GitHub page. Once cloned, make sure to run a dotnet build. Currently, this project does not have a front-end but the database is available to see through Swagger or Postman.
 
 ## Troubleshooting
 
